@@ -1,0 +1,32 @@
+def connect_chrome_driver(debug_port):
+    chrome_options = Options()
+    chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:{}".format(debug_port))
+    driver = webdriver.Chrome(options=chrome_options)
+    
+    try:
+        driver.minimize_window()
+        driver.maximize_window()
+    except:
+        print("捕捉到最大化最小化浏览器失败，忽略")
+    return driver
+
+from twitterlib import *
+
+
+# 检查端口是否可用
+import socket
+def is_port_in_use(port):
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.settimeout(0.01)
+        return s.connect_ex(('localhost', port)) == 0
+
+
+def fillForm(driver, address):
+    driver.get("https://)
+    time.sleep(5)
+    driver.find_element(By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[1]/div[1]/label/div/div[2]').click()
+    driver.find_element(By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[1]/div/div[1]/input'). \
+        send_keys(address)
+    driver.find_element(By.XPATH, '//*[@id="i19"]/div[3]').click()
+    time.sleep(1)
+    driver.find_element(By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div/span').click()
